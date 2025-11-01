@@ -1,0 +1,74 @@
+﻿<h2>Work done by an external Force Calculator</h2>
+<div class="Container">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Force applied (F) </h3>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="Enter Force applied" aria-label="Enter Force applied"@bind-value=force aria-describedby="basic-addon2">
+				<span class="input-group-text" id="basic-addon2">N</span>
+			</div>
+			<h3>Enter Displacement (s) </h3>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="Enter Displacement" aria-label="Enter Displacement"@bind-value=displacement aria-describedby="basic-addon2">
+				<span class="input-group-text" id="basic-addon2">m</span>
+			</div>
+
+			<h3>Enter angle between diplacement and Force applied (θ)</h3>
+			<div class="input-group">
+				<input type="number" class="form-control" id="angleInput"@bind-value=angle placeholder="Enter θ">
+				<select class="form-select" style="max-width: 80px;" @bind="SelectedUnit">
+					<option selected>deg</option>
+					<option>rad</option>
+				</select>
+			</div>
+			@if (SelectedUnit == "rad")
+			{
+				processangle = angle;
+			}
+			else degrad(); 
+			<button class="btn btn-primary  mt-3 mb-3" @onclick=workdone> Calculate</button>
+			<button class="btn btn-outline-success  mt-3 ml-3 mb-3" @onclick=reset> Reset</button>
+
+			<h4>Work Done is :</h4>
+			
+			<div class="input-group mt-3">
+				<input type="text" class="form-control"  @bind-value=workdonevalue readonly aria-describedby="basic-addon2">
+				<span class="input-group-text" id="basic-addon2">J</span>
+			</div>
+			<div class="text-center">
+			 <img src="workDone.png" alt="Angle Diagram" class="img-fluid mb-3" style="max-width: 250px;">
+			</div>	
+					
+		</div>
+	</div>
+
+</div>
+
+@code 
+{
+
+	public double force { get; set; }
+	public double displacement { get; set; }
+	public double angle{ get; set; }
+	public double workdonevalue { get; set; }
+	public string SelectedUnit = "deg";
+	public double processangle {get;set;}
+
+
+	private void workdone()
+	{
+		workdonevalue=force*displacement* Math.Cos(processangle);
+	}
+	private void degrad()
+	{
+		processangle = angle * ( Math.PI/180);
+	}
+	private void reset()
+	{
+		force = 0;
+		displacement = 0;
+		angle = 0;
+		workdonevalue = 0;
+	}
+
+}

@@ -1,0 +1,34 @@
+﻿<div class="Container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="from-group">
+				<label class="form-label"> Value One </label>
+				<input class="form-control" @bind-value=valueone />
+			</div>
+
+			<div class="from-group">
+				<label class="form-label"> Value Two </label>
+				<input class="form-control" @bind-value=valuetwo />
+			</div>
+
+			<button class="btn btn-primary  mt-3"@onclick=Add> Add</button>
+			<div class="from-group">
+				<label class="form-label"> Result </label>
+				<input class="form-control" @bind-value=result readonly/>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+@code 
+{
+	public int valueone { get; set; }
+	public int valuetwo{ get; set; }
+	public int result { get; set; }
+
+	private void Add()
+	{
+		result = valueone + valuetwo;
+	}
+}
